@@ -32,7 +32,8 @@
 			        	 <button type="button" class="btn btn btn-warning" data-toggle="modal" data-target="#uploadSticker">Upload new sticker</button>
 			        	 <div id="holder">
 			        	 <div ng-repeat="sticker in stickers track by $index">
-			        	 	<img data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true, onDrag:'dragCallback'}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" /><br/>
+			        	 	<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px">{{sticker.title}}</img>
+			        	 	
 			        	 </div>
 			        	 </div>
 			        </div>
@@ -49,21 +50,34 @@
 	          <h4 class="modal-title">Upload new sticker</h4>
 	        </div>
 	        <div class="modal-body">
-	          <form>
+	          <form id="stickerForm">
 	          	<div class="row">
-	                <div class="fileUpload btn btn-warning">
-					    <span>Add new sticker</span>
-					    <input type="file" class="upload" upload-sticker="onFileSelect($files)"  />					
+	          		<div class="control-group">
+	          			<i class="required-ind">*</i>
+		                <div class="fileUpload btn btn-warning">
+						    <span>Add new sticker</span>
+						    <input type="file" class="upload" upload-sticker="onFileSelect($files)"  />					
+						</div>
 					</div>
-	                <div class="col-md-5">
-	                    <ul class="loading-list" ng-loading="imageLoading"></ul>
-	                    <img ng-src="{{stickerImageSrc}}" class="thumbnail" width="140px" height="140px" /><br/>
-	                </div>
+	                <div class="control-group">
+	                	<i class="required-ind">*</i>
+                        <label class="control-label right-hspace">
+                            Sticker title:
+                        </label>
+                        <input type="text" required class="input-large right-hspace" maxlength="50" ng-model="newSticker.title"/>
+                    </div>
 	            </div>
-	          </form>
+	            <br/>
+	            <div class="row">
+		            <div class="sticker-box">
+		                    <ul class="loading-list" ng-loading="imageLoading"></ul>
+		                    <img ng-if="stickerImageSrc" ng-src="{{stickerImageSrc}}" class="thumbnail" width="50%" height="50%" /><br/>
+		            </div>
+	            </div>
+	          </form>	          
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-warning" data-dismiss="modal">Submit</button>
+	          <button type="button" class="btn btn-warning" ng-click="uploadSticker()" onclick="$('#uploadSticker').modal('hide')" ng-disabled="!newSticker.title || !stickerImageSrc" data-dismiss="modal">Submit</button>
 	        </div>
 	      </div>
 	    </div>

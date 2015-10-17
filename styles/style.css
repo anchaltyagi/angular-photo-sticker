@@ -8,7 +8,8 @@
 .fileUpload {
     position: relative;
     overflow: hidden;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .fileUpload input.upload {
     position: absolute;
@@ -21,9 +22,24 @@
     opacity: 0;
     filter: alpha(opacity=0);
 }
-svg{
-    background-color: #0e0;
-    
+.sticker-box{
+    border: 2px dashed #86867D;
+    display: block;  
+    min-height: 200px;  
+}
+.required-ind {
+    color: $gamma;
+    font-size: 1.5rem;
+    line-height: 1;
+    font-style: normal;
+    font-family: Verdana; // Requested by UX
+    vertical-align: middle;
+}
+img{
+  margin: auto;
+}
+form{
+  margin:20px;
 }
   .row.table-row > [class*="col-"].custom {
     background-color: lightgrey;
