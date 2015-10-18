@@ -18,7 +18,7 @@
 			        </div>			        
 			        <div class="fileUpload btn btn-warning" ng-show="!imageSrc">
 					    <span>Load photo</span>
-					    <input type="file" class="upload" upload-image="onFileSelect($files)"  />					
+					    <input type="file" class="upload" upload-image="onFileSelect($files)" accept="image/*" />					
 					</div>
 					<div>
 						<img ng-show="imageSrc" ng-src="{{imageSrc}}" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"><button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button></img>
@@ -57,7 +57,7 @@
 	          			<i class="required-ind">*</i>
 		                <div class="fileUpload btn btn-warning">
 						    <span>Add new sticker</span>
-						    <input type="file" class="upload" upload-sticker="onFileSelect($files)"  />					
+						    <input type="file" class="upload" upload-sticker="onFileSelect($files)" accept="image/*"/>					
 						</div>
 					</div>
 	                <div class="control-group">
