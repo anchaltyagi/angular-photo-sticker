@@ -15,14 +15,13 @@
 		        <div class="col-sm-6 custom">
 			        <div class="header">
 			        	<span> Photo</span>
-			        </div>
-			        <button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button>
+			        </div>			        
 			        <div class="fileUpload btn btn-warning" ng-show="!imageSrc">
 					    <span>Load photo</span>
 					    <input type="file" class="upload" upload-image="onFileSelect($files)"  />					
 					</div>
 					<div>
-						<img ng-show="imageSrc" ng-src="{{imageSrc}}" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
+						<img ng-show="imageSrc" ng-src="{{imageSrc}}" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"><button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button></img>
 					</div>
 		        </div>		      
 		        <div class="col-sm-6 image-col custom">
@@ -33,6 +32,7 @@
 			        	 <button type="button" class="btn btn btn-warning" data-toggle="modal" data-target="#uploadSticker">Upload new sticker</button>
 			        	 <div id="holder">
 			        	 <div ng-repeat="sticker in stickers track by $index">
+			        	 	<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
 			        	 	<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" title="{{sticker.title}}"><span>{{sticker.title}}</span></img>
 			        	 	
 			        	 </div>

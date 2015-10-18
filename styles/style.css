@@ -47,7 +47,7 @@ form{
   }
 
 
-@media (min-width: 768px) {
+@media (min-width: 150px) {
   
   img.img-fluid {width:100%;}
 

@@ -19,22 +19,28 @@ angular
 
         $scope.dropCallback = function(event, ui) {
             var droppedImage = ui.draggable[0];
+
             //Reset the height of dropped image parent container
             droppedImage.parentElement.style.height = "0px";
 
             //Remove span for image title
+            var removeButton = droppedImage.parentElement.getElementsByTagName("button");
             var titleSpan = droppedImage.parentElement.getElementsByTagName("span");
-            if (titleSpan && titleSpan[0]) {
+            if (titleSpan && titleSpan[0] && removeButton && removeButton[0]) {
                 droppedImage.parentElement.removeChild(titleSpan[0]);
+                droppedImage.parentElement.removeChild(removeButton[0]);
             }
 
-            //Recreate image after drop for using mutiple times
-            var recreateSticker = {
-                id: ++$scope.stickerCounter,
-                image: droppedImage.currentSrc,
-                title: droppedImage.title
-            };
-            $scope.stickers.push(recreateSticker);
+            //Recreate image after drop for using mutiple times, don't recreate if image is repositioned after drop
+            if (!droppedImage.title.startsWith("dropped_")) {
+                var recreateSticker = {
+                    id: ++$scope.stickerCounter,
+                    image: droppedImage.currentSrc,
+                    title: droppedImage.title
+                };
+                $scope.stickers.push(recreateSticker);                
+                droppedImage.title = "dropped_"+ droppedImage.id;
+            }
         };
 
         $scope.uploadSticker = function() {
@@ -44,9 +50,12 @@ angular
             $scope.stickerImageSrc = "";
         }
 
-        $scope.reset = function(){
-            $scope.stickers=[];
+        $scope.reset = function() {
+            $scope.stickers = [];
             $scope.imageSrc = "";
         }
 
+        $scope.removeSticker = function(index) {
+            $scope.stickers.splice(index, 1);
+        }
     });
