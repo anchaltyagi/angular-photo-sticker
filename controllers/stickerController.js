@@ -44,4 +44,9 @@ angular
             $scope.stickerImageSrc = "";
         }
 
+        $scope.reset = function(){
+            $scope.stickers=[];
+            $scope.imageSrc = "";
+        }
+
     });

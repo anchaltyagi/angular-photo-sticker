@@ -13,15 +13,16 @@
 		<div class="container">  
 		    <div class="row table-row">		      
 		        <div class="col-sm-6 custom">
-		        <div class="header">
-		        	<span> Photo</span>
-		        </div>
-		        <div class="fileUpload btn btn-warning">
-				    <span>Start over</span>
-				    <input type="file" class="upload" upload-image="onFileSelect($files)"  />					
-				</div>
+			        <div class="header">
+			        	<span> Photo</span>
+			        </div>
+			        <button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button>
+			        <div class="fileUpload btn btn-warning" ng-show="!imageSrc">
+					    <span>Load photo</span>
+					    <input type="file" class="upload" upload-image="onFileSelect($files)"  />					
+					</div>
 					<div>
-						<img ng-src="{{imageSrc}}" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
+						<img ng-show="imageSrc" ng-src="{{imageSrc}}" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
 					</div>
 		        </div>		      
 		        <div class="col-sm-6 image-col custom">
