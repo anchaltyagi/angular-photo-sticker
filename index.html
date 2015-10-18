@@ -10,9 +10,8 @@
 <body ng-app="blipparPhotoStickerApp">
 	<h2 class="text-center">Blippar photo sticker</h2>
 	<div class="base-container" ng-controller="stickerController">
-		<div class="container">  
-		    <div class="row table-row">		      
-		        <div class="col-sm-6 custom">
+		<div>  
+		     <div class="col-md-8">
 			        <div class="header">
 			        	<span> Photo</span>
 			        </div>			        
@@ -21,25 +20,25 @@
 					    <input type="file" class="upload" upload-image="onFileSelect($files)" accept="image/*" />					
 					</div>
 					<div>
-						<img ng-show="imageSrc" ng-src="{{imageSrc}}" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"><button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button></img>
+						<button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button>
+						<img ng-show="imageSrc" ng-src="{{imageSrc}}" style="width:100%;" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
 					</div>
 		        </div>		      
-		        <div class="col-sm-6 image-col custom">
+		        <div class="col-md-2">
 		        	<div class="header">
 			      	  <span> Stickers</span>
 			        </div>
 			        <div class="container">
 			        	 <button type="button" class="btn btn btn-warning" data-toggle="modal" data-target="#uploadSticker">Upload new sticker</button>
 			        	 <div id="holder">
-			        	 <div ng-repeat="sticker in stickers track by $index">
+			        	 <div ng-repeat="sticker in stickers track by $index" class="sticker-container">
 			        	 	<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
-			        	 	<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" title="{{sticker.title}}"><span>{{sticker.title}}</span></img>
+			        	 	<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" title="{{sticker.title}}"><span class="img-title">{{sticker.title}}</span></img>
 			        	 	
 			        	 </div>
 			        	 </div>
 			        </div>
-		        </div>		      
-		    </div>
+		        </div>	
 		</div>
      
      	 <!-- Modal -->
