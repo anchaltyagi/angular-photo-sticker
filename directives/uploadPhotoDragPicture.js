@@ -24,7 +24,6 @@ angular
                     $scope.file = (e.srcElement || e.target).files[0];
                     $scope.getFile(function(err, result) {
                         $scope.newSticker = {
-                            id: ++$scope.stickerCounter,
                             image: result
                         };
                         $scope.stickerImageSrc = result;

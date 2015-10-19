@@ -48,9 +48,11 @@
 				</nav>
 				<div class="col-md-12">
 					<div id="holder">
-						 <div ng-repeat="sticker in stickers track by $index" class="sticker-container">
-							<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
-							<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" title="{{sticker.title}}"><span class="img-title">{{sticker.title}}</span></img>
+						 <div ng-repeat="sticker in stickers" class="sticker-container">
+						 	<div title="{{sticker.title}}" id="{{$index}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}">
+								<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
+								<img id="{{sticker.id}}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px"><span class="img-title" title="{{sticker.title}}">{{sticker.title}}</span></img>
+							</div>
 						 </div>
 					 </div>
 				</div>

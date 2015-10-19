@@ -6,7 +6,6 @@ angular
         $scope.stickers = stickersInStore || []; // Load stickers from local storage
         $scope.imageSrc = mainPhoto || ""; // Load main photo image from local storage
         $scope.newSticker = {};
-        $scope.stickerCounter = 0;
 
         //Save sticker in local store
         $scope.$watch('stickers', function() {
@@ -35,28 +34,23 @@ angular
         };
 
         $scope.dropCallback = function(event, ui) {
-            var droppedImage = ui.draggable[0];
+            var droppedImageBlock = ui.draggable[0];
 
             //Reset the height of dropped image parent container
-            droppedImage.parentElement.style.height = "0px";
-
-            //Remove span for image title
-            var removeButton = droppedImage.parentElement.getElementsByTagName("button");
-            var titleSpan = droppedImage.parentElement.getElementsByTagName("span");
-            if (titleSpan && titleSpan[0] && removeButton && removeButton[0]) {
-                droppedImage.parentElement.removeChild(titleSpan[0]);
-                droppedImage.parentElement.removeChild(removeButton[0]);
-            }
+            droppedImageBlock.parentElement.style.height = "0px";
 
             //Recreate image after drop for using mutiple times, don't recreate if image is repositioned after drop within dropped area
-            if (!droppedImage.title.startsWith("dropped_")) {
+            if (!droppedImageBlock.title.startsWith("dropped_")) {
+                var droppedImage = droppedImageBlock.getElementsByTagName("img");
+                if (droppedImage && droppedImage[0]) {
+                    droppedImage = droppedImage[0];
+                }
                 var recreateSticker = {
-                    id: ++$scope.stickerCounter,
                     image: droppedImage.currentSrc,
-                    title: droppedImage.title
+                    title: droppedImageBlock.title
                 };
-                $scope.stickers.push(recreateSticker);
-                droppedImage.title = "dropped_" + droppedImage.id;
+                $scope.stickers.push(angular.copy(recreateSticker));
+                droppedImageBlock.title = "dropped_" + droppedImageBlock.id;                
             }
         };
 
