@@ -1,9 +1,30 @@
 angular
     .module('blipparPhotoStickerApp')
-    .controller('stickerController', function($scope, fileReader) {
-        $scope.stickers = [];
+    .controller('stickerController', function($scope, fileReader, localStorageService) {
+        var stickersInStore = localStorageService.get('stickers');
+        var mainPhoto = localStorageService.get('mainPhoto');
+        $scope.stickers = stickersInStore || []; // Load stickers from local storage
+        $scope.imageSrc = mainPhoto || ""; // Load main photo image from local storage
         $scope.newSticker = {};
         $scope.stickerCounter = 0;
+
+        //Save sticker in local store
+        $scope.$watch('stickers', function() {
+            try {
+                localStorageService.set('stickers', $scope.stickers);
+            } catch (e) {
+                alert("Local storage size exceeded from 5MB.");
+            }
+        }, true);
+
+        //Save main photo in local store
+        $scope.$watch('imageSrc', function() {
+            try {
+                localStorageService.set('mainPhoto', $scope.imageSrc);
+            } catch (e) {
+                alert("Local storage size exceeded from 5MB.");
+            }
+        }, true);
 
         $scope.getFile = function(callback) {
             $scope.progress = 0;
@@ -12,10 +33,6 @@ angular
                     callback(null, result);
                 });
         };
-
-        $scope.$on("fileProgress", function(e, progress) {
-            $scope.progress = progress.loaded / progress.total;
-        });
 
         $scope.dropCallback = function(event, ui) {
             var droppedImage = ui.draggable[0];
@@ -31,20 +48,22 @@ angular
                 droppedImage.parentElement.removeChild(removeButton[0]);
             }
 
-            //Recreate image after drop for using mutiple times, don't recreate if image is repositioned after drop
+            //Recreate image after drop for using mutiple times, don't recreate if image is repositioned after drop within dropped area
             if (!droppedImage.title.startsWith("dropped_")) {
                 var recreateSticker = {
                     id: ++$scope.stickerCounter,
                     image: droppedImage.currentSrc,
                     title: droppedImage.title
                 };
-                $scope.stickers.push(recreateSticker);                
-                droppedImage.title = "dropped_"+ droppedImage.id;
+                $scope.stickers.push(recreateSticker);
+                droppedImage.title = "dropped_" + droppedImage.id;
             }
         };
 
         $scope.uploadSticker = function() {
-            $scope.stickers.push(angular.copy($scope.newSticker));
+            var newSticker = angular.copy($scope.newSticker);
+            $scope.stickers.push(newSticker);
+
             //Reset sticker upload modal window
             $scope.newSticker = {};
             $scope.stickerImageSrc = "";

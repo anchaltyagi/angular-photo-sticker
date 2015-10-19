@@ -8,38 +8,55 @@
 	 <link href="./styles/style.css" rel="stylesheet">
 </head>
 <body ng-app="blipparPhotoStickerApp">
-	<h2 class="text-center">Blippar photo sticker</h2>
+	<div class="jumbotron text-center">
+		<h1>Blippar photo sticker</h1>
+	</div>
 	<div class="base-container" ng-controller="stickerController">
-		<div>  
+		<div class="container-fluid">
+		<div class="row">  
 		     <div class="col-md-8">
-			        <div class="header">
-			        	<span> Photo</span>
-			        </div>			        
-			        <div class="fileUpload btn btn-warning" ng-show="!imageSrc">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+					<div class="navbar-header">
+					  <a class="navbar-brand" href="#">Photo</a>
+					</div>
+					<div class="collapse navbar-collapse pull-right" >
+					  <div class="fileUpload btn btn-warning" ng-show="!imageSrc">
 					    <span>Load photo</span>
 					    <input type="file" class="upload" upload-image="onFileSelect($files)" accept="image/*" />					
+					  </div>
 					</div>
-					<div>
-						<button type="button" ng-show="imageSrc" class="btn btn-warning" ng-click="reset()">Start over</button>
-						<img ng-show="imageSrc" ng-src="{{imageSrc}}" style="width:100%;" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
+					<div class="collapse navbar-collapse pull-right" >
+						<button type="button" ng-show="imageSrc" class="btn btn-warning mybutton" ng-click="reset()">Start over</button>
 					</div>
-		        </div>		      
-		        <div class="col-md-2">
-		        	<div class="header">
-			      	  <span> Stickers</span>
-			        </div>
-			        <div class="container">
-			        	 <button type="button" class="btn btn btn-warning" data-toggle="modal" data-target="#uploadSticker">Upload new sticker</button>
-			        	 <div id="holder">
-			        	 <div ng-repeat="sticker in stickers track by $index" class="sticker-container">
-			        	 	<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
-			        	 	<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" title="{{sticker.title}}"><span class="img-title">{{sticker.title}}</span></img>
-			        	 	
-			        	 </div>
-			        	 </div>
-			        </div>
-		        </div>	
+				  </div>
+				</nav>
+				<div class="col-md-12">
+					<img ng-show="imageSrc" ng-src="{{imageSrc}}" style="width:100%;" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
+				</div>
+		    </div>		      
+		    <div class="col-md-2">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+					<div class="navbar-header">
+					  <a class="navbar-brand" href="#">Stickers</a>
+					</div>
+					<div class="collapse navbar-collapse pull-right" >
+					  <button type="button" class="btn btn btn-warning mybutton" data-toggle="modal" data-target="#uploadSticker">Upload new sticker</button>
+					</div>
+				  </div>
+				</nav>
+				<div class="col-md-12">
+					<div id="holder">
+						 <div ng-repeat="sticker in stickers track by $index" class="sticker-container">
+							<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
+							<img id="{{sticker.id}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px" title="{{sticker.title}}"><span class="img-title">{{sticker.title}}</span></img>
+						 </div>
+					 </div>
+				</div>
+		    </div>	
 		</div>
+	</div>
      
      	 <!-- Modal -->
 	  <div class="modal fade" id="uploadSticker" role="dialog">
@@ -84,11 +101,12 @@
 	  </div>
 	   
     </div>
-    <script src="./bower_components/jquery/dist/jquery.js"></script>
-    <script src="./bower_components/jquery-ui/jquery-ui.min.js"></script> 
-	<script src="./bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="./bower_components/angular/angular.js"></script>
-	<script src="./bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script> 
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
 	<script src="./app.js"></script>
 	<script src="./directives/uploadPhotoDragPicture.js"></script>
 	<script src="./controllers/stickerController.js"></script>

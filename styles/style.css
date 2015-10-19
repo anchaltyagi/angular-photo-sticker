@@ -1,5 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Didact+Gothic);
+body{
+font-family: 'Didact Gothic', sans-serif;
+}
 .header{
-	background-color: rgb(225,125,50);
+  background-color: #e67e22;
     min-height: 30px;
     text-align: center;
     color: #ffffff;
@@ -32,7 +36,7 @@
     font-size: 1.5rem;
     line-height: 1;
     font-style: normal;
-    font-family: Verdana; // Requested by UX
+    font-family: Verdana;
     vertical-align: middle;
 }
 img{
@@ -67,4 +71,9 @@ form{
 @media (min-width: 150px)
 .col-md-2 {
     width: 200px;
+}
+
+.mybutton{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
