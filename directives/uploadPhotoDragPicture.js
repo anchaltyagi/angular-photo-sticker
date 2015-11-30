@@ -2,7 +2,7 @@
 
 /* Directives */
 angular
-    .module('blipparPhotoStickerApp')
+    .module('photoStickerApp')
     .directive('uploadImage', function() {
         return {
             link: function($scope, element, attrs) {

@@ -3,9 +3,9 @@
  *
  * Description
  */
-app = angular.module('blipparPhotoStickerApp', ['ngDragDrop', 'LocalStorageModule'])
+angular.module('photoStickerApp', ['ngDragDrop', 'LocalStorageModule'])
 	.config(['localStorageServiceProvider',
 		function(localStorageServiceProvider) {
-			localStorageServiceProvider.setPrefix('blippar');
+			localStorageServiceProvider.setPrefix('sticker');
 		}
 	])

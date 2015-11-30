@@ -53,4 +53,4 @@
     module.factory("fileReader",
                    ["$q", "$log", fileReader]);
  
-}(angular.module("blipparPhotoStickerApp")));
+}(angular.module("photoStickerApp")));

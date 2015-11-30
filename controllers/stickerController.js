@@ -1,6 +1,6 @@
-angular
-    .module('blipparPhotoStickerApp')
-    .controller('stickerController', function($scope, fileReader, localStorageService) {
+(function(module) {
+
+    var stickerController = function($scope, fileReader, localStorageService) {
         var stickersInStore = localStorageService.get('stickers');
         var mainPhoto = localStorageService.get('mainPhoto');
         $scope.stickers = stickersInStore || []; // Load stickers from local storage
@@ -50,7 +50,7 @@ angular
                     title: droppedImageBlock.title
                 };
                 $scope.stickers.push(angular.copy(recreateSticker));
-                droppedImageBlock.title = "dropped_" + droppedImageBlock.id;                
+                droppedImageBlock.title = "dropped_" + droppedImageBlock.id;
             }
         };
 
@@ -71,4 +71,8 @@ angular
         $scope.removeSticker = function(index) {
             $scope.stickers.splice(index, 1);
         }
-    });
+    }
+
+    stickerController['$inject'] = ['$scope', 'fileReader', 'localStorageService'];
+    module.controller('stickerController', stickerController);
+}(angular.module("photoStickerApp")));
