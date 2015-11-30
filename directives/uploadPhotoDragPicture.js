@@ -9,8 +9,8 @@ angular
                 //Read selected image and show in photo area
                 element.bind("change", function(e) {
                     $scope.file = (e.srcElement || e.target).files[0];
-                    $scope.getFile(function(err, result) {
-                        $scope.imageSrc = result;
+                    $scope.getFile(function(err, result, vm) {
+                        vm.imageSrc = result;
                     });
                 });
             }
@@ -22,11 +22,11 @@ angular
                 //Read selected image and create new model scope for sticker modal window
                 element.bind("change", function(e) {
                     $scope.file = (e.srcElement || e.target).files[0];
-                    $scope.getFile(function(err, result) {
-                        $scope.newSticker = {
+                    $scope.getFile(function(err, result, vm) {
+                        vm.newSticker = {
                             image: result
                         };
-                        $scope.stickerImageSrc = result;
+                        vm.stickerImageSrc = result;
                     });
                 });
             }

@@ -11,7 +11,7 @@
 	<div class="jumbotron text-center">
 		<h1>Photo sticker</h1>
 	</div>
-	<div class="base-container" ng-controller="stickerController">
+	<div class="base-container" ng-controller="stickerController as vm">
 		<div class="container-fluid">
 		<div class="row">  
 		     <div class="col-md-8">
@@ -21,18 +21,18 @@
 					  <a class="navbar-brand" href="#">Photo</a>
 					</div>
 					<div class="collapse navbar-collapse pull-right" >
-					  <div class="fileUpload btn btn-warning" ng-show="!imageSrc">
+					  <div class="fileUpload btn btn-warning" ng-show="!vm.imageSrc">
 					    <span>Load photo</span>
 					    <input type="file" class="upload" upload-image="onFileSelect($files)" accept="image/*" />					
 					  </div>
 					</div>
 					<div class="collapse navbar-collapse pull-right" >
-						<button type="button" ng-show="imageSrc" class="btn btn-warning mybutton" ng-click="reset()">Start over</button>
+						<button type="button" ng-show="vm.imageSrc" class="btn btn-warning mybutton" ng-click="vm.reset()">Start over</button>
 					</div>
 				  </div>
 				</nav>
 				<div class="col-md-12">
-					<img ng-show="imageSrc" ng-src="{{imageSrc}}" style="width:100%;" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'dropCallback'}"/>
+					<img ng-show="vm.imageSrc" ng-src="{{vm.imageSrc}}" style="width:100%;" data-drop="true" data-jqyoui-options jqyoui-droppable="{onDrop:'vm.dropCallback'}"/>
 				</div>
 		    </div>		      
 		    <div class="col-md-2">
@@ -48,9 +48,9 @@
 				</nav>
 				<div class="col-md-12">
 					<div id="holder">
-						 <div ng-repeat="sticker in stickers" class="sticker-container">
+						 <div ng-repeat="sticker in vm.stickers" class="sticker-container">
 						 	<div title="{{sticker.title}}" id="{{$index}}" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}">
-								<button type="button" class="close" ng-click="removeSticker($index)">&times;</button>
+								<button type="button" class="close" ng-click="vm.removeSticker($index)">&times;</button>
 								<img id="{{sticker.id}}"  ng-src="{{sticker.image}}" class="thumbnail" width="140px" height="140px"><span class="img-title" title="{{sticker.title}}">{{sticker.title}}</span></img>
 							</div>
 						 </div>
@@ -83,20 +83,20 @@
                         <label class="control-label right-hspace">
                             Sticker title:
                         </label>
-                        <input type="text" required class="input-large right-hspace" maxlength="50" ng-model="newSticker.title"/>
+                        <input type="text" required class="input-large right-hspace" maxlength="50" ng-model="vm.newSticker.title"/>
                     </div>
 	            </div>
 	            <br/>
 	            <div class="row">
 		            <div class="sticker-box">
 		                    <ul class="loading-list" ng-loading="imageLoading"></ul>
-		                    <img ng-if="stickerImageSrc" ng-src="{{stickerImageSrc}}" class="thumbnail" width="50%" height="50%" /><br/>
+		                    <img ng-if="vm.stickerImageSrc" ng-src="{{vm.stickerImageSrc}}" class="thumbnail" width="50%" height="50%" /><br/>
 		            </div>
 	            </div>
 	          </form>	          
 	        </div>
 	        <div class="modal-footer">
-	          <button type="button" class="btn btn-warning" ng-click="uploadSticker()" onclick="$('#uploadSticker').modal('hide')" ng-disabled="!newSticker.title || !stickerImageSrc" data-dismiss="modal">Submit</button>
+	          <button type="button" class="btn btn-warning" ng-click="vm.uploadSticker()" onclick="$('#uploadSticker').modal('hide')" ng-disabled="!vm.newSticker.title || !vm.stickerImageSrc" data-dismiss="modal">Submit</button>
 	        </div>
 	      </div>
 	    </div>

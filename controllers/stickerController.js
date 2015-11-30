@@ -3,12 +3,21 @@
     var stickerController = function($scope, fileReader, localStorageService) {
         var stickersInStore = localStorageService.get('stickers');
         var mainPhoto = localStorageService.get('mainPhoto');
-        $scope.stickers = stickersInStore || []; // Load stickers from local storage
-        $scope.imageSrc = mainPhoto || ""; // Load main photo image from local storage
-        $scope.newSticker = {};
+
+        var vm = this;
+
+        vm.stickers = stickersInStore || []; // Load stickers from local storage
+        vm.imageSrc = mainPhoto || ""; // Load main photo image from local storage
+        vm.newSticker = {};
+
+
+
+        //*********************************************
+        // WATCHES
+        //*********************************************
 
         //Save sticker in local store
-        $scope.$watch('stickers', function() {
+        $scope.$watch('vm.stickers', function() {
             try {
                 localStorageService.set('stickers', $scope.stickers);
             } catch (e) {
@@ -17,9 +26,9 @@
         }, true);
 
         //Save main photo in local store
-        $scope.$watch('imageSrc', function() {
+        $scope.$watch('vm.imageSrc', function() {
             try {
-                localStorageService.set('mainPhoto', $scope.imageSrc);
+                localStorageService.set('mainPhoto', vm.imageSrc);
             } catch (e) {
                 alert("Local storage size exceeded from 5MB.");
             }
@@ -29,11 +38,14 @@
             $scope.progress = 0;
             fileReader.readAsDataUrl($scope.file, $scope)
                 .then(function(result) {
-                    callback(null, result);
+                    callback(null, result, vm);
                 });
         };
 
-        $scope.dropCallback = function(event, ui) {
+        //*********************************************
+        // Local Functions
+        //*********************************************
+        var dropCallback = function(event, ui) {
             var droppedImageBlock = ui.draggable[0];
 
             //Reset the height of dropped image parent container
@@ -49,30 +61,36 @@
                     image: droppedImage.currentSrc,
                     title: droppedImageBlock.title
                 };
-                $scope.stickers.push(angular.copy(recreateSticker));
+                vm.stickers.push(angular.copy(recreateSticker));
                 droppedImageBlock.title = "dropped_" + droppedImageBlock.id;
             }
         };
 
-        $scope.uploadSticker = function() {
-            var newSticker = angular.copy($scope.newSticker);
-            $scope.stickers.push(newSticker);
+        var uploadSticker = function() {
+            var newSticker = angular.copy(vm.newSticker);
+            vm.stickers.push(newSticker);
 
             //Reset sticker upload modal window
-            $scope.newSticker = {};
-            $scope.stickerImageSrc = "";
+            vm.newSticker = {};
+            vm.stickerImageSrc = "";
         }
 
-        $scope.reset = function() {
-            $scope.stickers = [];
-            $scope.imageSrc = "";
+        var reset = function() {
+            vm.stickers = [];
+            vm.imageSrc = "";
         }
 
-        $scope.removeSticker = function(index) {
-            $scope.stickers.splice(index, 1);
+        var removeSticker = function(index) {
+            vm.stickers.splice(index, 1);
         }
+
+        vm.dropCallback = dropCallback;
+        vm.uploadSticker = uploadSticker;
+        vm.reset = reset;
+        vm.removeSticker = removeSticker;
     }
 
     stickerController['$inject'] = ['$scope', 'fileReader', 'localStorageService'];
     module.controller('stickerController', stickerController);
+
 }(angular.module("photoStickerApp")));
